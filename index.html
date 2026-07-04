@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Nasywa Ivena ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#ffd6e7,#fff5f9,#ffeef4);
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.card{
+position:relative;
+width:90%;
+max-width:520px;
+padding:40px;
+border-radius:30px;
+background:rgba(255,255,255,.25);
+backdrop-filter:blur(18px);
+box-shadow:0 10px 40px rgba(255,0,100,.2);
+text-align:center;
+animation:fade 2s;
+z-index:5;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+h1{
+font-family:"Great Vibes",cursive;
+font-size:64px;
+color:#d81b60;
+margin-bottom:10px;
+}
+
+h2{
+font-size:30px;
+color:#c2185b;
+margin-bottom:20px;
+}
+
+#typing{
+font-size:18px;
+line-height:1.9;
+color:#444;
+min-height:170px;
+}
+
+button{
+margin-top:25px;
+padding:15px 28px;
+border:none;
+border-radius:40px;
+background:#ff4f87;
+color:white;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:#e91e63;
+}
+
+.flower{
+position:absolute;
+font-size:42px;
+animation:spin 8s linear infinite;
+}
+
+.left{
+left:-10px;
+top:10px;
+}
+
+.right{
+right:-10px;
+bottom:10px;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.petal{
+position:absolute;
+font-size:24px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-100px) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(120vh) rotate(720deg);
+opacity:0;
+}
+}
+
+.heart{
+position:absolute;
+color:#ff5c8a;
+font-size:20px;
+animation:heartFloat linear infinite;
+}
+
+@keyframes heartFloat{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120vh);
+opacity:0;
+}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="flower left">🌹</div>
+<div class="flower right">🌸</div>
+
+<div class="card">
+
+<h1>Hao Cantik</h1>
+
+<h2>Nasywa Ivena ❤️</h2>
+
+<p id="typing"></p>
+
+<button onclick="music()">
+🎵 Beautiful Journey
+</button>
+
+</div>
+<script>
+const text = `Selamat atas kelancaran sidangnya, Nasywa Ivena cantik. ❤️
+
+Semoga setiap langkah yang kamu tempuh selalu dipenuhi kebahagiaan, keberkahan, dan kesuksesan.
+
+Semua usaha, doa, dan kerja kerasmu akhirnya membuahkan hasil yang membanggakan.
+
+Teruslah menjadi pribadi yang hebat, rendah hati, dan selalu bersinar.
+
+Semoga perjalanan kamu ke depan seindah bunga yang bermekaran dan sehangat kasih sayang yang selalu menyertaimu.
+
+Selamat ya cantik ... 🌹✨`;
+
+let i = 0;
+const typing = document.getElementById("typing");
+
+function typeWriter(){
+    if(i < text.length){
+        typing.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,40);
+    }
+}
+typeWriter();
+
+// Kelopak bunga
+for(let i=0;i<25;i++){
+    const p=document.createElement("div");
+    p.className="petal";
+    p.innerHTML=Math.random()>0.5?"🌸":"🌺";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(6+Math.random()*8)+"s";
+    p.style.animationDelay=Math.random()*5+"s";
+    document.body.appendChild(p);
+}
+
+// Hati
+for(let i=0;i<20;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(5+Math.random()*6)+"s";
+    h.style.animationDelay=Math.random()*5+"s";
+    document.body.appendChild(h);
+}
+
+// Tombol lagu (membuka pencarian YouTube)
+const audio = new Audio("music.mp3");
+audio.loop = true;
+
+function music(){
+    if(audio.paused){
+        audio.play();
+    }else{
+        audio.pause();
+    }
+}
+
+// Confetti sederhana
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const confetti = [];
+
+for(let i=0;i<120;i++){
+    confetti.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*6+2,
+        dx:(Math.random()-0.5)*2,
+        dy:Math.random()*3+1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    confetti.forEach(c=>{
+        ctx.beginPath();
+        ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+        ctx.fillStyle=`hsl(${Math.random()*360},90%,70%)`;
+        ctx.fill();
+
+        c.x+=c.dx;
+        c.y+=c.dy;
+
+        if(c.y>canvas.height){
+            c.y=-10;
+            c.x=Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
+<script>
+// Resize canvas saat layar berubah
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Animasi muncul kartu
+window.addEventListener("load", () => {
+    const card = document.querySelector(".card");
+    card.style.transform = "scale(0.8)";
+    card.style.opacity = "0";
+
+    setTimeout(() => {
+        card.style.transition = "all 1s ease";
+        card.style.transform = "scale(1)";
+        card.style.opacity = "1";
+    }, 300);
+});
+
+// Efek klik
+document.addEventListener("click", (e) => {
+    const love = document.createElement("div");
+    love.innerHTML = "💖";
+    love.style.position = "fixed";
+    love.style.left = e.clientX + "px";
+    love.style.top = e.clientY + "px";
+    love.style.fontSize = "28px";
+    love.style.pointerEvents = "none";
+    love.style.transition = "all 1s ease";
+    love.style.zIndex = "9999";
+
+    document.body.appendChild(love);
+
+    setTimeout(() => {
+        love.style.transform = "translateY(-120px) scale(1.8)";
+        love.style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => {
+        love.remove();
+    }, 1000);
+});
+</script>
+
+</body>
+</html>
